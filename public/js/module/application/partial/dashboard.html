@@ -1,0 +1,96 @@
+<style type="text/css">
+	.dashboard-panel {
+		margin-bottom: 20px;
+	}
+	.dashboard-panel .title,
+	.dashboard-panel .content {
+		padding: 10px;
+		border-color: lightgrey;
+		border-style: solid;
+		border-width: 0 1px;
+	}
+	.dashboard-panel .title {
+		background-color: #fff;
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
+		border-top-width: 1px;
+	}
+	.dashboard-panel .content {
+		background-color: #fefefe;
+		box-shadow: inset 2px 4px 5px lightgrey;
+		border-bottom-left-radius: 10px;
+		border-bottom-right-radius: 10px;
+		border-bottom-width: 1px;
+	}
+</style>
+
+<div class="row-fluid">
+	<div class="span12">
+		<div class="row-fluid">
+			<div class="span6">
+				<h3>Dashboard</h3>
+			</div>
+			<div class="span6">
+				<div class="input-append">
+					<input class="span4" type="search" data-ng-model="q" placeholder="Search subjects...">
+					<button class="btn" type="button">Go!</button>
+				</div>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="dashboard-panel">
+					<div class="title">Trending (highest total opinion increases over the last 24 hours) - link to a list view of such subjects</div>
+					<div class="content">
+						<ul>
+							<li>sum/total (ratio = sum divided by total)</li>
+							<li>Scoring icon: Subject label</li>
+							<li>Scoring icon: Subject label</li>
+							<li>Scoring icon: Subject label</li>
+							<li>Scoring icon: Subject label</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="dashboard-panel">
+					<div class="title">New (last new subjects created with >1 opinion)</div>
+					<div class="content">
+						<ul>
+							<li><div data-score-icon data-sum="0" data-total="2"></div><a href="#/subject/1/">Some new opinion</a></li>
+							<li><div data-score-icon data-sum="2" data-total="2"></div><a href="#/subject/1/">Scoring icon will be calculated by sum/total to minimise html</a></li>
+							<li><div data-score-icon data-sum="1" data-total="3"></div><a href="#/subject/1/">Icon ratio will be coloured proportional to ratio, 1 at green and -1 at red.</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="dashboard-panel">
+					<div class="title">Most Loved (highest sums)</div>
+					<div class="content">
+						<ul>
+							<li><div data-score-icon data-number="100" data-colour="green"></div><a href="#/subject/1/">Icons are supplied here with only a single number and a colour. In this case it's always green.</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="dashboard-panel">
+					<div class="title">Most Hated (lowest sums)</div>
+					<div class="content">
+						<ul>
+							<li><div data-score-icon data-number="-100" data-colour="red"></div><a href="#/subject/1/">Icons are supplied here with only a single number and a colour. In this case it's always red.</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div data-list-subjects data-length="5" data-start="0" data-score="full|sumOnly"></div>
+	</div>
+</div>

@@ -1,0 +1,91 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>PM Reports || {{ page.getTitle() | capitalize }}</title>
+        <meta http-equiv="Content-Type" 
+              content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" 
+              content="IE=edge,chrome=1">
+        <meta name="viewport" 
+              content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" 
+              content="yes">
+        <?php
+        echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                //->prependStylesheet($this->basePath() . '/packages/ducksboard-gridster.js-ef626f8/dist/jquery.gridster.min.css')
+                //->prependStylesheet($this->basePath() . '/packages/FELSteed/vendor/autoload/view/progressbar-style.css')
+                ->prependStylesheet($this->basePath() . '/css/bootstrap-responsive.min.css')
+                ->prependStylesheet($this->basePath() . '/css/style.css')
+                ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css');
+        echo $this->headScript()->prependFile($this->basePath() . '/js/vendor/html5.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+                ->appendFile($this->basePath() . '/js/vendor/jquery.min.js')
+
+		//->appendFile($this->basePath() . '/packages/DevExpressChartJS-13.1.6/Lib/js/globalize.min.js')
+		//->appendFile($this->basePath() . '/packages/DevExpressChartJS-13.1.6/Lib/js/dx.chartjs.js')
+                //->appendFile($this->basePath() . '/packages/ducksboard-gridster.js-ef626f8/dist/jquery.gridster.min.js')
+
+                ->appendFile($this->basePath() . '/js/vendor/bootstrap.min.js')
+                //->appendFile($this->basePath() . '/js/d3.js')
+                ->appendFile($this->basePath() . '/js/vendor/angular/angular.js')
+                //->appendFile($this->basePath() . '/js/vendor/angular/angular-resource.js')
+                /*->appendFile($this->basePath() . '/js/app/app.js')
+                ->appendFile($this->basePath() . '/js/app/dashboard/controller/dashboardController.js')
+                ->appendFile($this->basePath() . '/js/app/dashboard/factory/dashboardFactory.js')
+                ->appendFile($this->basePath() . '/js/app/controllers.js')
+                ->appendFile($this->basePath() . '/js/app/services.js')
+                ->appendFile($this->basePath() . '/js/app/utils.js')
+                ->appendFile($this->basePath() . '/js/app/filters.js')
+                ->appendFile($this->basePath() . '/js/app/directives.js')
+                ->appendFile($this->basePath() . '/js/app/custom/http-interceptor.js')*/
+                ->appendFile($this->basePath() . '/js/vendor/bootstrap.min.js')
+                //->appendFile($this->basePath() . '/js/app/charts/module.js')
+                //->appendFile($this->basePath() . '/js/app/charts/directive/chart-report.js')
+                //->appendFile($this->basePath() . '/js/app/charts/factory/chart-engage.js')
+		->appendFile($this->basePath() . '/js/vendor/requirejs/requirejs.2.1.8.js')
+		->appendFile($this->basePath() . '/js/vendor/quadrahedron/quadrahedron.js')
+	;
+        ?>
+	<script type="text/javascript">
+		//qh.loadLib([
+			//"https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js",
+			//"https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"
+		//]);
+		qh.app(function() {return document.body;}); // For some reason it didn't like using 'document'.
+		qh.preloader(function() {return document.getElementById('preloader');});
+		qh.modules("js/module/modules.json");
+		//qh.modules("js/module", ["application"]);
+	</script>		
+
+    </head>
+    <body>
+        <div style="display:none;" class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right">
+                            <li>
+                                <a href="#" ng-click="logout()">Logout</a>
+                            </li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+        <div class="container" data-ng-controller="application.controller.index">
+		<div id="preloader">Preloading...</div>
+		<div data-ng-view></div>
+		<?php echo $this->content; ?>
+            <hr>
+            <footer>
+            </footer>
+        </div> <!-- /container -->
+        <?php echo $this->inlineScript() ?>
+    </body>
+</html>
