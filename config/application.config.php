@@ -8,6 +8,8 @@ return array(
 	//'ZendDeveloperTools',
 
 	'Application',
+	//'BaseUtils',
+        'Subject',
         //'PMAuthentication',
         //'Report',
     ),

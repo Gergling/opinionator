@@ -4,6 +4,9 @@ namespace Subject;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\ResultSet\ResultSet;
 
+use Subject\Model\Subject;
+use Subject\Model\SubjectTable;
+
 class Module
 {
     public function getAutoloaderConfig()
@@ -28,27 +31,17 @@ class Module
     {
         return array(
             'factories' => array(
-                'Fleet\Model\FleetTable' =>  function($sm) {
-                    $tableGateway = $sm->get('FleetTableGateway');
-                    $table = new FleetTable($tableGateway);
+                'Subject\Model\SubjectTable' =>  function($sm) {
+                    $tableGateway = $sm->get('SubjectTableGateway');
+                    $table = new SubjectTable($tableGateway);
                     return $table;
                 },
-                'Fleet\Model\FleetBuildTable' =>  function($sm) {
-                    $tableGateway = $sm->get('FleetBuildTableGateway');
-                    $table = new FleetBuildTable($tableGateway);
-                    return $table;
-                },
-                'FleetTableGateway' => function ($sm) {
+                'SubjectTableGateway' => function ($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Fleet($sm));
-                    return new TableGateway('ship_fleet', $dbAdapter, null, $resultSetPrototype);
-                },
-                'FleetBuildTableGateway' => function ($sm) {
-                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new FleetBuild($sm));
-                    return new TableGateway('ship_fleet_build', $dbAdapter, null, $resultSetPrototype);
+                    //$resultSetPrototype->setArrayObjectPrototype(new Subject($sm));
+                    $resultSetPrototype->setArrayObjectPrototype(new Subject());
+                    return new TableGateway('subject', $dbAdapter, null, $resultSetPrototype);
                 },
             ),
         );

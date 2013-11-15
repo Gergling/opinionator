@@ -14,7 +14,7 @@ return array(
 				'options' => array(
 					'route'    => '/subject',
 					'defaults' => array(
-						'controller' => 'Fleet\Controller\Fleet',
+						'controller' => 'Subject\Controller\Subject',
 						'action'     => 'list',
 					),
 				),
@@ -88,31 +88,15 @@ return array(
 		'error/404' => __DIR__ . '/../view/error/404.phtml',
 	),
         'template_path_stack' => array(
-            'fleet' => __DIR__ . '/../view',
+            'subject' => __DIR__ . '/../view',
+        ),
+	'strategies' => array(
+		'ViewJsonStrategy',
         ),
 	'not_found_template' => 'error/404',
     ),
-	'view_helpers' => array(
+	/*'view_helpers' => array(
 		'factories' => array(
-			/*'getFleetBuildHTML' => function($sm) {
-				//echo'<pre>';print_r($sm);echo'</pre>';
-				$f = $sm->getServiceLocator()->get('Fleet\Controller\FleetController');
-				//$f = $sm->get('Fleet\Controller\FleetController');
-				//$fleetbuild = $sm->getServiceLocator()->get('Fleet\Helper\FleetBuildView');
-
-				//return new \Fleet\View\Helper\FleetBuildView($fleetbuild);
-				return new \Fleet\View\Helper\FleetBuildView($f->getRequest());
-			}*/
-			/*'getFleetManifestHTML' => function($sm) {
-				//echo'<pre>';print_r($sm);echo'</pre>';
-				//$f = $sm->getServiceLocator()->get('Fleet\Controller\FleetController');
-				//$f = $sm->get('Fleet\Controller\FleetController');
-				//$fleetbuild = $sm->getServiceLocator()->get('Fleet\Helper\FleetBuildView');
-
-				//return new \Fleet\View\Helper\FleetBuildView($fleetbuild);
-				return new \Fleet\View\Helper\FleetManifestView($sm);
-			}*/
-			//'x' => function() {}
 		),
 		'invokables' => array(
 			//'getFleetManifestHTML' => 'Fleet\View\Helper\FleetManifestView',
@@ -120,5 +104,5 @@ return array(
 			'getFleetBuildDetailHTML' => 'Fleet\View\Helper\FleetBuildDetailView',
 			'getFleetUICookieJS' => 'Fleet\View\Helper\FleetUICookieJS',
 		),
-	),
+	),*/
 );
