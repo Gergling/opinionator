@@ -1,6 +1,7 @@
 {
 	"basePath": "js/module",
 	"list": [
-		"application"
+		"application",
+		"subject"
 	]
 }
