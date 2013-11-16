@@ -18,8 +18,9 @@ class SubjectController extends AbstractActionController
 	public function listAction() {
 		$sm = $this->getServiceLocator();
 		$subjects = new SubjectCollection();
+		$searchParams = array(); // get this from POST arguments.
 		return new JsonModel(array(
-			"subjects" => $subjects->fetchSubjects($sm),
+			"subjects" => $subjects->fetchSubjects($sm, $searchParams),
 			"page" => "Express the current page and the number of pages to maximise convenience. Most of that data will be required on this request anyway.",
 		));
 	}

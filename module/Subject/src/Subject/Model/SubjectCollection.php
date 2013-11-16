@@ -4,14 +4,13 @@ namespace Subject\Model;
 //use Base\Model\BaseTable;
 
 class SubjectCollection {
-	private $subjects;
+	private $subjects = array();
 
-	/*public function __construct($sm) {
-		$this->sm = $sm;
-	}*/
-
-	public function fetchSubjects($sm) {
-		$this->subjects = $sm->get('Subject\Model\SubjectTable')->fetchSubjects();
+	public function fetchSubjects($sm, $filter = array()) {
+		$subjectResults = $sm->get('Subject\Model\SubjectTable')->fetchSubjects($filter);
+		foreach($subjectResults as $item) {
+			$this->subjects[] = $item;
+		}
 		return $this->subjects;
 	}
 }

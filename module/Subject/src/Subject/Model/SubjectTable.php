@@ -44,13 +44,8 @@ class SubjectTable
 			$select->limit(1);
 		});*/
 		$statement = $sql->prepareStatementForSqlObject($select);
-		echo'<pre>';print_r($statement);echo'</pre>';
+		//echo'<pre>';print_r($statement);echo'</pre>';
 		$response = $statement->execute();
-		foreach($response as $item) {
-			//echo'<pre>';
-			print_r($item);
-			//echo'</pre>';
-		}
 		return $response;
 	}
 
