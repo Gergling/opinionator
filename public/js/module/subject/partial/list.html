@@ -1,7 +1,7 @@
 <ul>
 	<div data-ng-hide="subjectList">Loading subjects...</div>
 	<li data-ng-repeat="subject in subjectList">
-		<div data-score-icon data-number="-100" data-colour="red"></div>
+		<div subject-score-icon data-total="{{subject.total}}" data-sum="{{subject.sum}}" data-ratio="{{subject.ratio}}"></div>
 		<a href="#/subject/{{subject.id}}/">{{subject.label}}</a>
 	</li>
 </ul>

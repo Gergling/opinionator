@@ -3,6 +3,7 @@ qh.setModule("subject", {
 		"list"
 	],
 	directive: [
-		"list"
+		"list",
+		"score-icon",
 	]
 });
