@@ -5,9 +5,13 @@ namespace Subject\Model;
 
 class Subject extends BaseTableClassExtension {
 	public $id, $label, $description;
+	public $sum, $total, $ratio;
 
-	/*public function __construct($sm) {
-		$this->sm = $sm;
-	}*/
-
+	public function calculateRatio() {
+		$r = 0;
+		if ($this->total) {
+			$r = $this->sum/$this->total;
+		}
+		$this->ratio = $r;
+	}
 }
