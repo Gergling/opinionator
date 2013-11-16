@@ -35,14 +35,14 @@ class SubjectTable
 		$select->limit($filter["limit"]);
 		$select->from('subject');
 		$select->offset($filter["offset"]);
-		$select->join("subject_opinion", "item_id = id", array(), $select::JOIN_LEFT);
+		$select->join("subject_opinion", "item_id = id", array(), $select::JOIN_LEFT); // Needs to join AND rating <> 0 but it keeps putting executable quotes around '0'.
 		$select->where("type = 'subject' OR type IS NULL");
 		$select->group(array("id"));
-		$select->columns(array("id", "label", "description", "rating" => new Expression("SUM(IFNULL(rating, 0))")));
+		$select->columns(array("id", "label", "description", 
+			"sum" => new Expression("SUM(IFNULL(rating, 0))"),
+			"total" => new Expression("COUNT(DISTINCT user_id)"),
+		));
 
-		/*$response = $this->tableGateway->select(function (Select $select) {
-			$select->limit(1);
-		});*/
 		$statement = $sql->prepareStatementForSqlObject($select);
 		//echo'<pre>';print_r($statement);echo'</pre>';
 		$response = $statement->execute();
