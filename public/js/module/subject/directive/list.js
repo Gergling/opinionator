@@ -15,7 +15,6 @@ qh.getModule('subject').directive('subjectList', function() {
 				params[name] = $attrs[name] || params[name];
 			});
 			$scope.subjectList = [];
-			console.log(1, $scope.subjectList);
 			list.fetch(params).then(function(response) {
 				$scope.subjectList = response.data.subjects;
 			});
