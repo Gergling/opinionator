@@ -1,0 +1,6 @@
+ul.subject-list {
+	list-style:none;
+}
+ul.subject-list li .subject-list-inner .left {
+	float:left;
+}
