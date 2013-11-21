@@ -2,11 +2,10 @@ qh.getModule('subject').factory("subject.factory.list", ["$rootScope", "$http", 
 	var obj = {
 		fetch: function(params) {
 			return $http({
-				method: 'POST',
+				method: 'GET',
 				url: "http://opinionator.localhost/subject",
-				data: {params: params}
+				params: params,
 			}).success(function (response) {
-				//console.log("Response", response);
 				obj.list = response.data;
 			});
 		},
