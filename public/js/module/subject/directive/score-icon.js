@@ -1,30 +1,22 @@
 qh.getModule('subject').directive('subjectScoreIcon', function() {
 	return {
-		restrict: 'ACE',
-		//transclude: true,
-		scope: {sum:"@", total:"@", ratio:"@", blue:"@", subject:"=subject"},
+		restrict: 'A',
+		scope: true,
 		templateUrl: qh.getQHModule('subject').getPath()+"/partial/score-icon.html",
-		controller: ["$rootScope", "$attrs", function($scope, $attrs) {
-			$scope.$watch("$attrs.sum", function () {
-				$scope.sum = $attrs.sum;
+		controller: ["$scope", "$attrs", "$element", function($scope, $attrs, $element) {
+			$scope.colour = {
+				red: 255, 
+				green: 255,
+				blue: 0,
+			};
+			var range = 255;
+			range = $attrs.range;
+			$scope.$watch("$attrs.subject", function () {
+				$scope.subject = JSON.parse($attrs.subject);
+				var r = $scope.subject.ratio;
+				if (r>=0) {$scope.colour["red"] = Math.floor((1-r)*range);}
+				if (r<=0) {$scope.colour["green"] = Math.floor((1+r)*range);}
 			});
-			$scope.$watch("$attrs.total", function () {
-				$scope.total = $attrs.total;
-			});
-			$scope.$watch("$attrs.ratio", function () {
-				$scope.ratio = $attrs.ratio;
-				if ($scope.ratio>0) {
-					$scope.red = (1+$scope.ratio)*255;
-				}
-				if ($scope.ratio<0) {
-					$scope.green = (1-$scope.ratio)*255;
-				}
-				console.log("red2", $scope.red);
-			});
-			$scope.red = 255;
-			$scope.green = 255;
-			$scope.blue = 0;
-			console.log("red", $scope.red);
-		}]
+		}],
 	};
 });

@@ -49,7 +49,7 @@
 							<li>Scoring icon: Subject label</li>
 							<li>Scoring icon: Subject label</li>
 						</ul>-->
-						<div subject-list>Loading subjects...</div>
+						<div subject-list data-order-string="sum ASC:label ASC">Loading subjects...</div>
 					</div>
 				</div>
 			</div>
@@ -70,12 +70,14 @@
 		<div class="row-fluid">
 			<div class="span6">
 				<div class="dashboard-panel">
-					<div class="title">Most Loved (highest sums)</div>
+					<div class="title">Most Loved (highest sums)
+						<div subject-list-link data-order-string="sum DESC:total ASC:label ASC" content="Most Loved"></div>
+					</div>
 					<div class="content">
 						<!--<ul>
 							<li><div data-score-icon data-number="100" data-colour="green"></div><a href="#/subject/1/">Icons are supplied here with only a single number and a colour. In this case it's always green.</a></li>
 						</ul>-->
-						<div subject-list>Loading subjects...</div>
+						<div subject-list data-order-string="sum DESC:total ASC:label ASC">Loading subjects...</div>
 					</div>
 				</div>
 			</div>
@@ -86,7 +88,7 @@
 						<!--<ul>
 							<li><div data-score-icon data-number="-100" data-colour="red"></div><a href="#/subject/1/">Icons are supplied here with only a single number and a colour. In this case it's always red.</a></li>
 						</ul>-->
-						<div subject-list>Loading subjects...</div>
+						<div subject-list data-order-string="sum ASC:label DESC">Loading subjects...</div>
 					</div>
 				</div>
 			</div>
@@ -96,7 +98,7 @@
 				<div class="dashboard-panel">
 					<div class="title">Most Interesting - link to a list view of such subjects</div>
 					<div class="content">
-						<div subject-list>Loading subjects...</div>
+						<div subject-list data-order-string="total DESC:label DESC">Loading subjects...</div>
 					</div>
 				</div>
 			</div>
@@ -104,7 +106,7 @@
 				<div class="dashboard-panel">
 					<div class="title">Most Viewed</div>
 					<div class="content">
-						<div subject-list>Loading subjects...</div>
+						<div subject-list data-order-string="sum ASC:label DESC">Loading subjects...</div>
 					</div>
 				</div>
 			</div>

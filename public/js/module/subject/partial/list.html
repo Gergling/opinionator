@@ -1,7 +1,16 @@
-<ul>
+<ul class="subject-list">
 	<div data-ng-hide="subjectList">Loading subjects...</div>
 	<li data-ng-repeat="subject in subjectList">
-		<div subject-score-icon data-total="{{subject.total}}" data-sum="{{subject.sum}}" data-ratio="{{subject.ratio}}"></div>
-		<a href="#/subject/{{subject.id}}/">{{subject.label}}</a>
+		<div class="subject-list-inner">
+			<div class="left">
+				<!--<sup title="Sum: {{subject.sum}}">{{subject.sum}}</sup>/<sub title="Total: {{subject.total}}">{{subject.total}}</sub>
+				<span title="Ratio: {{subject.ratio}}" style="color:rgb({{subject.colour.red}}, {{subject.colour.green}}, {{subject.colour.blue}})">({{subject.ratio}})</span>-->
+				<div subject-score-icon range="160" subject="{{subject}}"></div>
+			</div>
+			<div class="left">
+				<a href="#/subject/{{subject.id}}/">{{subject.label}}</a>
+			</div>
+		</div>
+		<div style="clear:both;"></div>
 	</li>
 </ul>
