@@ -12,30 +12,30 @@ use Subject\Model\SubjectCollection;
 
 class SubjectController extends AbstractActionController
 {
-	protected $fleetTable, $fleetBuildTable, $buildTable;
 
 	// By default, list all subjects
 	public function listAction() {
 		$sm = $this->getServiceLocator();
 		$subjects = new SubjectCollection();
 		$searchParams = array(); // get this from POST arguments.
+		$searchParams["order"] = explode(":", $this->params()->fromQuery('orderString', 'label ASC'));
+		//echo $this->params()->fromRoute('subject_id', 0);
+		//echo'<pre>';print_r($searchParams["order"]);echo'</pre>';
+		//echo'<pre>';print_r(array_keys(get_object_vars($this)));echo'</pre>';
+		//print_r($_REQUEST);
 		return new JsonModel(array(
 			"subjects" => $subjects->fetchSubjects($sm, $searchParams),
 			"page" => "Express the current page and the number of pages to maximise convenience. Most of that data will be required on this request anyway.",
+			"request" => $_REQUEST,
+			"orderString" => $this->params()->fromQuery('orderString', 'label ASC'),
+			"get" => $_GET,
+			"order" => $searchParams["order"],
 		));
 	}
-
-
-	private function dispatchAuthentication() {
-		$this->getRequest()->getQuery()->set('redirect', $this->getRequest()->getRequestUri());
-		return $this->forward()->dispatch('zfcuser', array('action' => 'login'));
-	}
-	public function getFleetTable() {
-		if (!$this->fleetTable) {
-			$sm = $this->getServiceLocator();
-			$this->fleetTable = $sm->get('Fleet\Model\FleetTable');
-			//$this->fleetTable->setDocumentManager($sm->get('doctrine.documentmanager.odm_default'));
-		}
-		return $this->fleetTable;
+	public function iconSmallAction() {
+		echo"answer me";
+		return new ViewModel(array(
+			'stuff' => "stuuuuuuuuuuff",
+		));
 	}
 }

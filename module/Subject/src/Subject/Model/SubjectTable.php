@@ -35,7 +35,8 @@ class SubjectTable
 		$select->limit($filter["limit"]);
 		$select->from('subject');
 		$select->offset($filter["offset"]);
-		$select->join("subject_opinion", "item_id = id", array(), $select::JOIN_LEFT); // Needs to join AND rating <> 0 but it keeps putting executable quotes around '0'.
+		$select->join("subject_opinion", new Expression("item_id = id AND rating <> 0"), array(), $select::JOIN_LEFT);
+		// Needs to join AND rating <> 0 but it keeps putting executable quotes around '0'.
 		$select->where("type = 'subject' OR type IS NULL");
 		$select->group(array("id"));
 		$select->columns(array("id", "label", "description", 
