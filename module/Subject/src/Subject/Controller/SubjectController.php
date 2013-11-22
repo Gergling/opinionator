@@ -38,4 +38,15 @@ class SubjectController extends AbstractActionController
 			'stuff' => "stuuuuuuuuuuff",
 		));
 	}
+	public function generateRandomOpinionsAction() {
+		$totalOpinions = $this->getRequest()->getParam('number');
+		if (!$totalOpinions) {$totalOpinions = 10;}
+		$messageLines = array();
+		echo "?: Generating {$totalOpinions} random opinions.\n";
+		// Need to get list of subject ids.
+		// Then add several opinions with a value of 1 or -1.
+		// Randomly generate a user_id of maybe 8 letters. Overwrite opinions of the same ids.
+		// Randomly select an item_id.
+		return implode("\n", $messageLines)."\n";
+	}
 }

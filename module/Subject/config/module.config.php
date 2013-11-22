@@ -28,6 +28,48 @@ return array(
 								'subject_id' => '[0-9]+',
 							),
 						),
+						'may_terminate' => true,
+						'child_routes' => array(
+							'icon' => array(
+								'type' => 'literal',
+								'options' => array(
+									'route' => '/icon',
+								),
+								'may_terminate' => true,
+								'child_routes' => array(
+									'small' => array(
+										'type' => 'literal',
+										'options' => array(
+											'route' => '/small',
+										),
+										'defaults' => array(
+											'action'     => 'iconSmall',
+										),
+									),
+								),
+							),
+						),
+					),
+					'icon' => array(
+						'type' => 'literal',
+						'options' => array(
+							'route' => '/icon/:subject_id',
+							'constraints' => array(
+								'subject_id' => '[0-9]+',
+							),
+						),
+						'may_terminate' => true,
+						'child_routes' => array(
+							'small' => array(
+								'type' => 'literal',
+								'options' => array(
+									'route' => '/small',
+								),
+								'defaults' => array(
+									'action'     => 'iconSmall',
+								),
+							),
+						),
 					),
 					'create' => array(
 						'type' => 'segment',
@@ -82,6 +124,22 @@ return array(
 				),
 			),
 		),
+	),
+	'console' => array(
+		'router' => array(
+			'routes' => array(
+				'generate-random-opinions' => array(
+					'options' => array(
+						'route'    => 'generate-random-opinions [<number>]',
+						'defaults' => array(
+							'__NAMESPACE__' => 'Subject\Controller',
+							'controller'    => 'Subject',
+							'action'        => 'generateRandomOpinions',
+						),
+					),
+				),
+			)
+		)
 	),
     'view_manager' => array(
         'template_map' => array(
