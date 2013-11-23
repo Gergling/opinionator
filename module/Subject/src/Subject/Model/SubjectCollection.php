@@ -3,8 +3,8 @@ namespace Subject\Model;
 
 //use Base\Model\BaseTable;
 
-class SubjectCollection {
-	private $subjects = array();
+class SubjectCollection extends BaseCollection {
+	//private $subjects = array();
 
 	public function fetchSubjects($sm, $filter = array()) {
 		$subjectResults = $sm->get('Subject\Model\SubjectTable')->fetchSubjects($filter);
@@ -14,9 +14,9 @@ class SubjectCollection {
 			$subject->calculateRatio();
 			$this->add($subject);
 		}
-		return $this->subjects;
+		return $this;
 	}
-	public function add(Subject $subject) {
+	/*public function add(Subject $subject) {
 		$this->subjects[] = $subject;
-	}
+	}*/
 }

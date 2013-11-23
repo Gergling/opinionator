@@ -3,8 +3,8 @@ namespace Subject\Model;
 
 //use Base\Model\BaseTable;
 
-class Subject extends BaseTableClassExtension {
-	public $id, $label, $description;
+class Subject extends BaseItem {
+	public $label, $description;
 	public $sum, $total, $ratio;
 
 	public function calculateRatio() {

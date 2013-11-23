@@ -6,6 +6,8 @@ use Zend\Db\ResultSet\ResultSet;
 
 use Subject\Model\Subject;
 use Subject\Model\SubjectTable;
+use Subject\Model\Opinion;
+use Subject\Model\OpinionTable;
 
 class Module
 {
@@ -42,6 +44,17 @@ class Module
                     //$resultSetPrototype->setArrayObjectPrototype(new Subject($sm));
                     $resultSetPrototype->setArrayObjectPrototype(new Subject());
                     return new TableGateway('subject', $dbAdapter, null, $resultSetPrototype);
+                },
+                'Subject\Model\OpinionTable' =>  function($sm) {
+                    $tableGateway = $sm->get('OpinionTableGateway');
+                    $table = new OpinionTable($tableGateway);
+                    return $table;
+                },
+                'OpinionTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Opinion());
+                    return new TableGateway('subject_opinion', $dbAdapter, null, $resultSetPrototype);
                 },
             ),
         );

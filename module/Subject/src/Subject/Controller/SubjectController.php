@@ -24,7 +24,7 @@ class SubjectController extends AbstractActionController
 		//echo'<pre>';print_r(array_keys(get_object_vars($this)));echo'</pre>';
 		//print_r($_REQUEST);
 		return new JsonModel(array(
-			"subjects" => $subjects->fetchSubjects($sm, $searchParams),
+			"subjects" => $subjects->fetchSubjects($sm, $searchParams)->getPureArray(),
 			"page" => "Express the current page and the number of pages to maximise convenience. Most of that data will be required on this request anyway.",
 			"request" => $_REQUEST,
 			"orderString" => $this->params()->fromQuery('orderString', 'label ASC'),
@@ -41,12 +41,37 @@ class SubjectController extends AbstractActionController
 	public function generateRandomOpinionsAction() {
 		$totalOpinions = $this->getRequest()->getParam('number');
 		if (!$totalOpinions) {$totalOpinions = 10;}
+		
+		$sm = $this->getServiceLocator();
+		$opinionTable = $sm->get('Subject\Model\OpinionTable');
+
 		$messageLines = array();
-		echo "?: Generating {$totalOpinions} random opinions.\n";
+
+		echo "?: Generating {$totalOpinions} random opinions... ";
+
 		// Need to get list of subject ids.
+		$subjects = new SubjectCollection();
+		$subjects->fetchSubjects($sm, array("limit" => 100));
+		$subjectIds = array();
+		foreach($subjects as $subject) {
+			$subjectIds[] = $subject->getID();
+		}
+
 		// Then add several opinions with a value of 1 or -1.
-		// Randomly generate a user_id of maybe 8 letters. Overwrite opinions of the same ids.
-		// Randomly select an item_id.
+		for($i=0;$i<$totalOpinions;$i++) {
+			$subjectId = $subjectIds[array_rand($subjectIds)];
+			$userId = rand(0, 10000);
+			$opinion = $opinionTable->fetchOpinion($userId, $subjectId);
+			if ($opinion) {
+				$opinion->rateUp((rand(0, 1)>0.5));
+			} else {
+				print_r($opinion);
+				die("For some reason there was no opinion object for the rating function to work.\n");
+			}
+			//print_r($opinion);
+			$opinionTable->save($opinion);
+		}
+		echo "Done.\n";
 		return implode("\n", $messageLines)."\n";
 	}
 }
