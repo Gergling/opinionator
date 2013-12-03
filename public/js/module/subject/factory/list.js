@@ -10,6 +10,18 @@ qh.getModule('subject').factory("subject.factory.list", ["$rootScope", "$http", 
 			});
 		},
 		list: [],
+		validateParams: function(inputParams) {
+			var params = {
+				offset: 0,
+				limit: 5,
+				whereString: "",
+				orderString: "sum ASC",
+			};
+			$.each(params, function(name, value) {
+				params[name] = inputParams[name] || params[name];
+			});
+			return params;
+		},
 	};
 	return obj;
 }]);
