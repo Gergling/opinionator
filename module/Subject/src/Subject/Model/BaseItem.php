@@ -3,7 +3,7 @@ namespace Subject\Model;
 
 class BaseItem
 {
-	private $id;
+	public $id;
 	public function exchangeArray($data) {
 		foreach($this->getArrayCopy() as $name => $junk) {
 			$this->$name = (isset($data[$name])) ? $data[$name] : null;
