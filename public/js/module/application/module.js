@@ -7,6 +7,10 @@ qh.setModule("application", {
 		"index"
 	],
 	controller: [
-		"index"
+		"index",
+		"list"
+	],
+	directive: [
+		"dashboard-panel",
 	],
 });

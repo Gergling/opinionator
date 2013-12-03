@@ -4,6 +4,7 @@ qh.setModule("subject", {
 	],
 	directive: [
 		"list",
+		"list-link",
 		"score-icon",
 	]
 });

@@ -39,58 +39,25 @@
 		</div>
 		<div class="row-fluid">
 			<div class="span4">
-				<div class="dashboard-panel">
-					<div class="title">Trending (highest total increases over last 24 hours)</div>
-					<div class="content">
-						<div subject-list data-order-string="sum ASC:label ASC">Loading subjects...</div>
-					</div>
-				</div>
+				<div dashboard-panel data-order="label ASC" data-title="Trending (highest total increases over last 24 hours)"></div>
 			</div>
 			<div class="span4">
-				<div class="dashboard-panel">
-					<div class="title">New (last new subjects created with >1 opinion)</div>
-					<div class="content">
-						<div subject-list>Loading subjects...</div>
-					</div>
-				</div>
+				<div dashboard-panel data-order="label ASC" data-title="New (last new subjects created with > 1 opinion)"></div>
 			</div>
 			<div class="span4">
-				<div class="dashboard-panel">
-					<div class="title">Most Loved (highest sums)
-						<div subject-list-link data-order-string="sum DESC:total ASC:label ASC" content="Most Loved"></div>
-					</div>
-					<div class="content">
-						<div subject-list data-order-string="sum DESC:total ASC:label ASC">Loading subjects...</div>
-					</div>
-				</div>
+				<div dashboard-panel data-order="sum DESC:total ASC:label ASC" data-title="Most Loved"></div>
 			</div>
 		</div>
 		<div class="row-fluid">
 			<div class="span4">
-				<div class="dashboard-panel">
-					<div class="title">Most Interesting - link to a list view of such subjects</div>
-					<div class="content">
-						<div subject-list data-order-string="total DESC:label DESC">Loading subjects...</div>
-					</div>
-				</div>
+				<div dashboard-panel data-order="total DESC:label DESC" data-title="Most Interesting"></div>
 			</div>
 			<div class="span4">
-				<div class="dashboard-panel">
-					<div class="title">Most Viewed</div>
-					<div class="content">
-						<div subject-list data-order-string="sum ASC:label DESC">Loading subjects...</div>
-					</div>
-				</div>
+				<div dashboard-panel data-order="label ASC" data-title="Most Viewed"></div>
 			</div>
 			<div class="span4">
-				<div class="dashboard-panel">
-					<div class="title">Most Hated (lowest sums)</div>
-					<div class="content">
-						<div subject-list data-order-string="sum ASC:label DESC">Loading subjects...</div>
-					</div>
-				</div>
+				<div dashboard-panel data-order="sum ASC:total ASC:label DESC" data-title="Most Hated"></div>
 			</div>
 		</div>
-		<div data-list-subjects data-length="5" data-start="0" data-score="full|sumOnly"></div>
 	</div>
 </div>
