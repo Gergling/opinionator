@@ -19,17 +19,20 @@ class SubjectController extends AbstractActionController
 		$subjects = new SubjectCollection();
 		$searchParams = array(); // get this from POST arguments.
 		$searchParams["order"] = explode(":", $this->params()->fromQuery('orderString', 'label ASC'));
+		$searchParams["limit"] = $this->params()->fromQuery('limit', 5);
+		$searchParams["offset"] = $this->params()->fromQuery('offset', 0);
+		$searchParams["whereString"] = $this->params()->fromQuery('whereString', '');
 		//echo $this->params()->fromRoute('subject_id', 0);
 		//echo'<pre>';print_r($searchParams["order"]);echo'</pre>';
 		//echo'<pre>';print_r(array_keys(get_object_vars($this)));echo'</pre>';
 		//print_r($_REQUEST);
 		return new JsonModel(array(
 			"subjects" => $subjects->fetchSubjects($sm, $searchParams)->getPureArray(),
-			"page" => "Express the current page and the number of pages to maximise convenience. Most of that data will be required on this request anyway.",
-			"request" => $_REQUEST,
-			"orderString" => $this->params()->fromQuery('orderString', 'label ASC'),
-			"get" => $_GET,
-			"order" => $searchParams["order"],
+			"page" => array(
+				"current" => 1,
+				"total" => 1,
+			),
+			"searchParams" => $searchParams,
 		));
 	}
 	public function iconSmallAction() {
