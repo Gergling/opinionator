@@ -2,6 +2,7 @@
 	"basePath": "js/module",
 	"list": [
 		"application",
-		"subject"
+		"subject",
+		"util"
 	]
 }

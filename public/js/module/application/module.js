@@ -1,7 +1,8 @@
 qh.setModule("application", {
 	app: true,
 	require: [
-		"subject"
+		"subject",
+		"util"
 	],
 	config: [
 		"index"
