@@ -15,7 +15,6 @@ qh.getModule('subject').directive('subjectList', function() {
 			});
 			$scope.$watchCollection("["+watchParams.join(",")+"]", function () {
 				var params = list.validateParams($attrs);
-				console.log(params);
 				for(var i=0;i<params.limit*1;i++) {
 					$scope.subjectList.push({});
 				}
