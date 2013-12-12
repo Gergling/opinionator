@@ -4,3 +4,28 @@ ul.subject-list {
 ul.subject-list li .subject-list-inner .left {
 	float:left;
 }
+
+.score-icon {
+	/*background-color:black;*/
+	width:40px;
+	height:40px;
+	border-width: 5px;
+	border-radius:25px;
+	border-style:solid;
+	display:table;
+	border-color: #aaa;
+
+	background: #1e5799; /* Old browsers */
+	background: -moz-linear-gradient(top, #1e5799 0%, #444 0%, #ccc 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(0%,#444), color-stop(100%,#ccc)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #1e5799 0%,#444 0%,#ccc 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #1e5799 0%,#444 0%,#ccc 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #1e5799 0%,#444 0%,#ccc 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #1e5799 0%,#444 0%,#ccc 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#ccc',GradientType=0 ); /* IE6-9 */
+}
+.score-icon-inner {
+	display:table-cell;
+	text-align:center;
+	vertical-align:middle;
+}
