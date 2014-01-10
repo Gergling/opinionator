@@ -3,6 +3,7 @@
 	"list": [
 		"application",
 		"subject",
+		"sort-filter",
 		"util"
 	]
 }

@@ -2,6 +2,7 @@ qh.setModule("application", {
 	app: true,
 	require: [
 		"subject",
+		"sort-filter",
 		"util"
 	],
 	config: [
