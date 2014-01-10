@@ -3,7 +3,7 @@ qh.getModule('subject').factory("subject.factory.list", ["$rootScope", "$http", 
 		fetch: function(params) {
 			return $http({
 				method: 'GET',
-				url: "http://opinionator.localhost/subject",
+				url: "/subject",
 				params: params,
 			}).success(function (response) {
 				obj.list = response.data;
