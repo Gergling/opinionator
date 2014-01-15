@@ -22,7 +22,7 @@
 			<span data-ng-show="sort.sortingByColumns">Sorting by: </span>
 		</div>
 		<div class="modifiable-label" data-ng-repeat="column in sort.sortingByColumns">
-			{{column.label}} 
+			{{column.label}} ({{column.asc}})
 			<span class="icon icon-remove" data-ng-click="sort.remove(column.id)"></span>
 		</div>
 	</div>
