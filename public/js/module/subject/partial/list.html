@@ -1,14 +1,23 @@
-<ul class="subject-list">
-	<div data-ng-hide="subjectList">Loading subjects...</div>
-	<li data-ng-repeat="subject in subjectList">
-		<div class="subject-list-inner">
-			<div class="left">
-				<div subject-score-icon range="255" subject="{{subject}}"></div>
+<div>
+	<div data-ng-show="{{sortFilter}}">
+		The order options need to be taken from the back-end. That includes labels and current order connected together.
+		{{columns.all}}
+		{{columns.current}}
+		<div list-options-sort name="{{sortFilterName}}" columns="{{columns.all}}" current="{{columns.current}}">(Loading...)</div>
+	</div>
+	<!--<div list-options-sort name="subject-list" columns="{{['Name','Description','Sum','Ratio','Total']}}" current="{{[{id:3, asc:0}, {id:2, asc:1}]}}">(Loading...)</div>-->
+	<ul class="subject-list">
+		<div data-ng-hide="subjectList">Loading subjects...</div>
+		<li data-ng-repeat="subject in subjectList">
+			<div class="subject-list-inner">
+				<div class="left">
+					<div subject-score-icon range="255" subject="{{subject}}"></div>
+				</div>
+				<div class="left">
+					<a href="#/subject/{{subject.id}}/">{{subject.label}}</a>
+				</div>
 			</div>
-			<div class="left">
-				<a href="#/subject/{{subject.id}}/">{{subject.label}}</a>
-			</div>
-		</div>
-		<div style="clear:both;"></div>
-	</li>
-</ul>
+			<div style="clear:both;"></div>
+		</li>
+	</ul>
+</div>
