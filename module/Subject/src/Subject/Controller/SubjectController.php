@@ -4,6 +4,7 @@ namespace Subject\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 use Subject\Model\SubjectCollection;
+use Subject\Model\Subject;
 //use Build\Model;
 
 
@@ -16,8 +17,17 @@ class SubjectController extends AbstractActionController
 	// By default, list all subjects
 	public function listAction() {
 		$sm = $this->getServiceLocator();
+		$subjectInstance = new Subject();
 		$subjects = new SubjectCollection();
 		$searchParams = array(); // get this from POST arguments.
+		/*$order = explode(":", $this->params()->fromQuery('orderString', 'label ASC'));
+		foreach($order as $fieldOrderString) {
+			$fieldOrder = explode(" ", $fieldOrderString);
+			$searchParams["order"][] = array(
+				"name" => 
+				"order" => 
+			);
+		}*/
 		$searchParams["order"] = explode(":", $this->params()->fromQuery('orderString', 'label ASC'));
 		$searchParams["limit"] = $this->params()->fromQuery('limit', 5);
 		$searchParams["offset"] = $this->params()->fromQuery('offset', 0);
@@ -33,6 +43,7 @@ class SubjectController extends AbstractActionController
 				"total" => 1,
 			),
 			"searchParams" => $searchParams,
+			"columnLabels" => $subjectInstance->getFieldLabels(),
 		));
 	}
 	public function iconSmallAction() {
