@@ -14,4 +14,14 @@ class Subject extends BaseItem {
 		}
 		$this->ratio = $r;
 	}
+
+	public function getFieldLabels() {
+		return array(
+			"label" => "Name",
+			"description" => "Description",
+			"sum" => "Sum",
+			"total" => "Total",
+			"ratio" => "Ratio",
+		);
+	}
 }
