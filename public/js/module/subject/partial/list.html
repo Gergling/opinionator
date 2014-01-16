@@ -5,7 +5,6 @@
 		{{columns.current}}
 		<div list-options-sort name="{{sortFilterName}}" columns="{{columns.all}}" current="{{columns.current}}">(Loading...)</div>
 	</div>
-	<!--<div list-options-sort name="subject-list" columns="{{['Name','Description','Sum','Ratio','Total']}}" current="{{[{id:3, asc:0}, {id:2, asc:1}]}}">(Loading...)</div>-->
 	<ul class="subject-list">
 		<div data-ng-hide="subjectList">Loading subjects...</div>
 		<li data-ng-repeat="subject in subjectList">
