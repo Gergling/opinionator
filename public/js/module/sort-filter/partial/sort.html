@@ -22,7 +22,8 @@
 			<span data-ng-show="sort.sortingByColumns">Sorting by: </span>
 		</div>
 		<div class="modifiable-label" data-ng-repeat="column in sort.sortingByColumns">
-			{{column.label}} ({{column.asc}})
+			{{column.label}}
+			<span class="icon" data-ng-class="{'icon-arrow-up': column.asc, 'icon-arrow-down': !column.asc}" data-ng-click="sort.toggle(column.id)"></span>
 			<span class="icon icon-remove" data-ng-click="sort.remove(column.id)"></span>
 		</div>
 	</div>
@@ -33,7 +34,8 @@
 		</div>
 		<div class="modifiable-label" data-ng-repeat="column in sort.unusedColumns">
 			{{column.label}} 
-			<span class="icon icon-plus" data-ng-click="sort.add(column.id)"></span>
+			<span class="icon icon-arrow-up" data-ng-click="sort.add(column.id, true)"></span>
+			<span class="icon icon-arrow-down" data-ng-click="sort.add(column.id, false)"></span>
 		</div>
 	</div>
 </div>
