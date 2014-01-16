@@ -33,12 +33,17 @@ qh.component('sort-filter', function(ngm, qhm) {
 				this.current = current || [];
 
 				// Needs to be able to add to current columns, remove from current columns and modify order.
-				this.add = function(id) {
-					this.current.push(id);
+				this.toggle = function(id) {
+					var currentColumn = this.getCurrent(id);
+					currentColumn.current.asc = !currentColumn.current.asc;
+					this.update();
+				};
+				this.add = function(id, asc) {
+					this.current.push(obj.createCurrent(id, asc));
 					this.update();
 				};
 				this.remove = function(id) {
-					this.current.splice(this.current.indexOf(id), 1);
+					this.current.splice(this.getCurrent(id).currentPosition, 1);
 					this.update();
 				};
 				this.updateCurrentIndex = function() {
