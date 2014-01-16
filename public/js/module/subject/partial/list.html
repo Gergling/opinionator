@@ -1,12 +1,11 @@
 <div>
 	<div data-ng-show="{{sortFilter}}">
 		The order options need to be taken from the back-end. That includes labels and current order connected together.
-		{{columns.all}}
-		{{columns.current}}
 		<div list-options-sort name="{{sortFilterName}}" columns="{{columns.all}}" current="{{columns.current}}">(Loading...)</div>
+		<button class="btn" type="button" data-ng-click="update()"><span class="icon icon-refresh"></span></button>
 	</div>
+	<div data-ng-show="loading && firstLoading">Loading subjects...</div>
 	<ul class="subject-list">
-		<div data-ng-hide="subjectList">Loading subjects...</div>
 		<li data-ng-repeat="subject in subjectList">
 			<div class="subject-list-inner">
 				<div class="left">
@@ -18,5 +17,6 @@
 			</div>
 			<div style="clear:both;"></div>
 		</li>
+		<li class="preloader" data-ng-show="loading"></li>
 	</ul>
 </div>

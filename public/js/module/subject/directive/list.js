@@ -23,20 +23,18 @@ qh.getModule('subject').directive('subjectList', function() {
 			};
 			
 			$scope.sortFilterName = "subject-filter";
+			$scope.loading = true;
+			$scope.firstLoading = true;
 			
 			$scope.subjectList = [];
 
-			var watchParams = [];
-			var params = list.validateParams({});
-			$.each(params, function(name) {
-				watchParams[name] = "$attrs."+name;
-			});
-			$scope.$watchCollection("["+watchParams.join(",")+"]", function () {
+			$scope.update = function() {
 				var params = list.validateParams($attrs);
 				for(var i=0;i<params.limit*1;i++) {
 					$scope.subjectList.push({});
 				}
 				$scope.sortFilter = $attrs.sortFilter;
+				$scope.loading = true;
 				list.fetch(params).then(function(response) {
 					$scope.subjectList = response.data.subjects;
 					$scope.columns = getColumns(response.data.searchParams.order, response.data.columnLabels);
@@ -44,7 +42,18 @@ qh.getModule('subject').directive('subjectList', function() {
 					// Perhaps columns should go into a factory?
 					// Columns go into sort-filter factory for name 'subject-list'.
 					sort.addSort($scope.sortFilterName, $scope.columns.all, $scope.columns.current);
+					$scope.loading = false;
+					$scope.firstLoading = false;
 				});
+			};
+
+			var watchParams = [];
+			var params = list.validateParams({});
+			$.each(params, function(name) {
+				watchParams[name] = "$attrs."+name;
+			});
+			$scope.$watchCollection("["+watchParams.join(",")+"]", function () {
+				$scope.update();
 			});
 		}],
 	};
