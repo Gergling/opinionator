@@ -1,0 +1,55 @@
+<style>
+
+.modifiable-label {
+	float:left;
+	/*background-color: #f5f5f5;*/
+	background-color: white;
+	border: 1px solid #e3e3e3;
+	padding:2px;
+	padding-left:4px;
+	margin-left: 3px;
+}
+.modifiable-label:first-child {
+	margin-left: 0px;
+}
+.button.disabled {opacity:0.5;}
+
+</style>
+
+<div>
+	<div style="overflow:auto;" class="well well-small">
+		<div class="modifiable-label">
+			<span data-ng-hide="sortFilter.filter.columns">(Showing all records)</span>
+			<span data-ng-show="sortFilter.filter.columns">Filtering by: </span>
+		</div>
+		<div class="modifiable-label" data-ng-repeat="column in sortFilter.filter.columns">
+			{{column.label}} : (Filter value(s) - ought to be able to click here to modify the values somehow, e.g. column = 'a' | 'b' | 'c' | 2, )
+			<span class="icon" data-ng-class="{'icon-arrow-up': column.asc, 'icon-arrow-down': !column.asc}" data-ng-click="sortFilter.sort.toggle(column.id)"></span>
+			<span class="icon icon-remove" data-ng-click="sortFilter.sort.remove(column.id)"></span>
+		</div>
+	</div>
+	<div style="overflow:auto;" class="well well-small">
+		<div class="modifiable-label">
+			<span data-ng-hide="sortFilter.sort.sortingByColumns">(No particular order)</span>
+			<span data-ng-show="sortFilter.sort.sortingByColumns">Sorting by: </span>
+		</div>
+		<div class="modifiable-label" data-ng-repeat="column in sortFilter.sort.sortingByColumns">
+			{{column.label}}
+			<span class="icon" data-ng-class="{'icon-arrow-up': column.asc, 'icon-arrow-down': !column.asc}" data-ng-click="sortFilter.sort.toggle(column.id)"></span>
+			<span class="icon icon-remove" data-ng-click="sortFilter.sort.remove(column.id)"></span>
+		</div>
+	</div>
+	<div style="overflow:auto;" class="well well-small">
+		<div class="modifiable-label">
+			<span>Click to sort by: </span>
+			<!--<span data-ng-show="sortFilter.sort.unusedColumns">Click to sort by: </span>
+			<span data-ng-hide="sortFilter.sort.unusedColumns">All columns are in use</span>-->
+		</div>
+		<div class="modifiable-label" data-ng-repeat="column in sortFilter.columns">
+			{{column.label}} 
+			<span class="button icon icon-arrow-up" data-ng-class="{disabled:column.flags.asc}" data-ng-click="sortFilter.sort.add(column.id, true)"></span>
+			<span class="button icon icon-arrow-down" data-ng-class="{disabled:column.flags.desc}" data-ng-click="sortFilter.sort.add(column.id, false)"></span>
+			<span class="button icon icon-filter" data-ng-class="{disabled:column.flags.filter}" data-ng-click="" style="opacity:0.5;"></span>
+		</div>
+	</div>
+</div>

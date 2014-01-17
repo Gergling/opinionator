@@ -1,15 +1,17 @@
 qh.getModule('subject').directive('subjectList', function() {
 	return {
 		restrict: 'A',
-		scope: {orderString:"@", whereString:"@", limit:"@", offset:"@", sortFilter:"@"},
+		scope: {orderString:"@", whereString:"@", limit:"@", offset:"@", showSortFilter:"@"},
 		templateUrl: qh.getQHModule('subject').getPath()+"/partial/list.html",
-		controller: ["$scope", "$attrs", "subject.factory.list", "sort-filter.factory.sort", function($scope, $attrs, list, sort) {
+		controller: ["$scope", "$attrs", "subject.factory.list", "sort-filter.factory.sort-filter", "sort-filter.factory.sort", function($scope, $attrs, list, sortFilter, sort) {
 			var getColumns = function(searchParamsOrder, columnLabels) {
-				var columns = {all:[], current:[]};
+				var columns = {all:[], current:{sort:[], filter:[]}};
 				var idx = {id:[], name:{}};
 				$.each(columnLabels, function(name, label) {
-					var id = columns.all.push(label)-1;
-					var column = {id: id, name:name, label:label};
+					id = columns.all.length;
+					var column = sortFilter.createColumn(id, name, label);
+					columns.all.push(column);
+					//var column = {id: id, name:name, label:label};
 					idx.id[id] = column;
 					idx.name[name] = column;
 				});
@@ -17,7 +19,7 @@ qh.getModule('subject').directive('subjectList', function() {
 					var columnOrder = columnOrderString.split(" ");
 					var name = columnOrder[0];
 					var order = columnOrder[1];
-					columns.current.push(sort.createCurrent(idx.name[name].id, order=="ASC"));
+					columns.current.sort.push(sort.createCurrent(idx.name[name].id, order=="ASC"));
 				});
 				return columns;
 			};
@@ -29,21 +31,32 @@ qh.getModule('subject').directive('subjectList', function() {
 			$scope.subjectList = [];
 
 			$scope.update = function() {
+				// Probably need a separate function to call this update and modify the params according to the sort-filter change.
 				var params = list.validateParams($attrs);
 				for(var i=0;i<params.limit*1;i++) {
 					$scope.subjectList.push({});
 				}
+
 				$scope.sortFilter = $attrs.sortFilter;
 				$scope.loading = true;
+				try {
+					//console.log(1, params, sort.getSort($scope.sortFilterName).sortingByColumns);
+				} catch(e) {
+				}
 				list.fetch(params).then(function(response) {
 					$scope.subjectList = response.data.subjects;
 					$scope.columns = getColumns(response.data.searchParams.order, response.data.columnLabels);
 					// Make sorting directive update from here.
 					// Perhaps columns should go into a factory?
 					// Columns go into sort-filter factory for name 'subject-list'.
-					sort.addSort($scope.sortFilterName, $scope.columns.all, $scope.columns.current);
+					sortFilter.addSortFilter($scope.sortFilterName, $scope.columns.all).sort.setCurrent($scope.columns.current.sort);
 					$scope.loading = false;
 					$scope.firstLoading = false;
+					
+					var sortColumns = sortFilter.getSortFilter($scope.sortFilterName).sort.current;
+					//console.log(1, sortColumns);
+					//params
+
 				});
 			};
 

@@ -1,13 +1,16 @@
 qh.component('sort-filter', function(ngm, qhm) {
 	ngm.factory(qhm.getComponent('factory', 'sort').getFullName(), ["$rootScope", "$http", function($scope, $http) {
 		var obj = {
-			sorts: {},
+			/*sorts: {},
 				
+			createColumn: function(id, name, label) {
+				return {id:id, name:name, label:label};
+			},*/
 			createCurrent: function(id, asc) {
 				return {id:id, asc:asc};
 			},
 
-			addSort: function(name, columns, current) {
+			/*addSort: function(name, columns, current) {
 				if (!obj.sorts[name]) {
 					obj.sorts[name] = new obj.Sort(columns, current);
 				}
@@ -18,19 +21,28 @@ qh.component('sort-filter', function(ngm, qhm) {
 				});
 
 				return sort;
-			},
-			getSort: function(name) {
+			},*/
+			/*getSort: function(name) {
 				if (obj.sorts[name]) {
 					return obj.sorts[name];
 				} else {
 					throw "sort-filter.factory.sort.getSort: Unknown sort '"+name+"'.";
 				}
-			},
+			},*/
 
-			Sort: function(columns, current) {
+			Sort: function(sortFilter) {
 				var localScope = this;
-				this.columns = columns;
-				this.current = current || [];
+				this.sortFilter = sortFilter;
+				this.current = [];
+				
+				this.setCurrent = function(current) {
+					localScope.current = current;
+					localScope.update();
+				}
+				this.resetColumnFlags = function(column) {
+					column.flags.asc = false;
+					column.flags.desc = false;
+				};
 
 				// Needs to be able to add to current columns, remove from current columns and modify order.
 				this.toggle = function(id) {
@@ -39,16 +51,21 @@ qh.component('sort-filter', function(ngm, qhm) {
 					this.update();
 				};
 				this.add = function(id, asc) {
-					this.current.push(obj.createCurrent(id, asc));
+					var currentColumn = this.getCurrent(id);
+					if (currentColumn.currentPosition===undefined) {
+						this.current.push(obj.createCurrent(id, asc));
+					} else {
+						currentColumn.current.asc = asc;
+					}
 					this.update();
 				};
 				this.remove = function(id) {
 					this.current.splice(this.getCurrent(id).currentPosition, 1);
 					this.update();
 				};
-				this.updateCurrentIndex = function() {
+				/*this.updateCurrentIndex = function() {
 					localScope.current.index
-				};
+				};*/
 				this.getCurrent = function(id) {
 					var ret = {};
 					var x = angular.forEach(localScope.current, function(current, currentPosition) {
@@ -60,10 +77,11 @@ qh.component('sort-filter', function(ngm, qhm) {
 					localScope.unusedColumns = [];
 					localScope.sortingByColumns = [];
 
-					angular.forEach(localScope.columns, function(label, id) {
+					angular.forEach(localScope.sortFilter.columns, function(column, id) {
 						var current = localScope.getCurrent(id);
-						var column = {id: id, label: label};
+						localScope.resetColumnFlags(column);
 						if (current.currentPosition>-1) {
+							if (current.current.asc) {column.flags.asc = true;} else {column.flags.desc = true;}
 							localScope.sortingByColumns[current.currentPosition] = $.extend(column, {asc:current.current.asc});
 						} else {
 							localScope.unusedColumns.push(column);
