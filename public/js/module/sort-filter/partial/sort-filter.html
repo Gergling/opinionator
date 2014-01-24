@@ -1,25 +1,24 @@
 <style>
 
-.modifiable-label {
+.sort-filter .modifiable-label {
 	float:left;
-	/*background-color: #f5f5f5;*/
 	background-color: white;
 	border: 1px solid #e3e3e3;
 	padding:2px;
 	padding-left:4px;
 	margin-left: 3px;
 }
-.modifiable-label:first-child {
+.sort-filter .modifiable-label:first-child {
 	margin-left: 0px;
 }
-.button.disabled {opacity:0.5;}
+.sort-filter .button.disabled {opacity:0.5;}
 
 </style>
 
-<div>
+<div class="sort-filter">
 	<div style="overflow:auto;" class="well well-small">
 		<div class="modifiable-label">
-			<span data-ng-hide="sortFilter.filter.columns">(Showing all records)</span>
+			<span data-ng-hide="sortFilter.filter.columns">Showing all records</span>
 			<span data-ng-show="sortFilter.filter.columns">Filtering by: </span>
 		</div>
 		<div class="modifiable-label" data-ng-repeat="column in sortFilter.filter.columns">
@@ -30,7 +29,7 @@
 	</div>
 	<div style="overflow:auto;" class="well well-small">
 		<div class="modifiable-label">
-			<span data-ng-hide="sortFilter.sort.sortingByColumns">(No particular order)</span>
+			<span data-ng-hide="sortFilter.sort.sortingByColumns">No particular order</span>
 			<span data-ng-show="sortFilter.sort.sortingByColumns">Sorting by: </span>
 		</div>
 		<div class="modifiable-label" data-ng-repeat="column in sortFilter.sort.sortingByColumns">
