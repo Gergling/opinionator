@@ -3,8 +3,10 @@ qh.getModule('subject').directive('subjectList', function() {
 		restrict: 'A',
 		scope: {orderString:"@", whereString:"@", limit:"@", offset:"@", showSortFilter:"@"},
 		templateUrl: qh.getQHModule('subject').getPath()+"/partial/list.html",
-		controller: ["$scope", "$attrs", "subject.factory.list", "sort-filter.factory.sort-filter", "sort-filter.factory.sort", function($scope, $attrs, list, sortFilter, sort) {
+		controller: ["$scope", "$attrs", "subject.factory.list", "sort-filter.factory.sort-filter", "sort-filter.factory.sort", "$location", 
+		function($scope, $attrs, list, sortFilter, sort, $location) {
 			var getColumns = function(searchParamsOrder, columnLabels) {
+				// This function extrapolates sort columns for use inside the partial from url parameters and allowed columns for the list.
 				var columns = {all:[], current:{sort:[], filter:[]}};
 				var idx = {id:[], name:{}};
 				$.each(columnLabels, function(name, label) {
@@ -29,6 +31,12 @@ qh.getModule('subject').directive('subjectList', function() {
 			$scope.firstLoading = true;
 			
 			$scope.subjectList = [];
+			
+			$scope.refresh = function() {
+				$location.search("orderString", list.getSortOrderString(sortFilter.getSortFilter($scope.sortFilterName).sort.sortingByColumns));
+				// Will also want whereString
+				$location.replace();
+			};
 
 			$scope.update = function() {
 				// Probably need a separate function to call this update and modify the params according to the sort-filter change.
@@ -39,10 +47,6 @@ qh.getModule('subject').directive('subjectList', function() {
 
 				$scope.sortFilter = $attrs.sortFilter;
 				$scope.loading = true;
-				try {
-					//console.log(1, params, sort.getSort($scope.sortFilterName).sortingByColumns);
-				} catch(e) {
-				}
 				list.fetch(params).then(function(response) {
 					$scope.subjectList = response.data.subjects;
 					$scope.columns = getColumns(response.data.searchParams.order, response.data.columnLabels);
@@ -53,7 +57,7 @@ qh.getModule('subject').directive('subjectList', function() {
 					$scope.loading = false;
 					$scope.firstLoading = false;
 					
-					var sortColumns = sortFilter.getSortFilter($scope.sortFilterName).sort.current;
+					//var sortColumns = sortFilter.getSortFilter($scope.sortFilterName).sort.current;
 					//console.log(1, sortColumns);
 					//params
 

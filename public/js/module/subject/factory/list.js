@@ -3,7 +3,6 @@ qh.component('subject', function(ngm, qhm) {
 		var obj = {
 			fetch: function(params, forceUpdate) {
 				var promise = $q.defer().promise;
-				var updated = false;
 				if (Object.keys(obj.list).length || forceUpdate) {
 					promise = $http({
 						method: 'GET',
@@ -13,7 +12,6 @@ qh.component('subject', function(ngm, qhm) {
 						var key = JSON.stringify(jQuery.extend(true, {}, response.searchParams));
 						obj.list.all[key] = response;
 						obj.list.last = response;
-						updated = true;
 					});
 				}
 				return promise;
@@ -30,6 +28,13 @@ qh.component('subject', function(ngm, qhm) {
 					params[name] = inputParams[name] || params[name];
 				});
 				return params;
+			},
+			getSortOrderString: function(columns) {
+				var order = [];
+				angular.forEach(columns, function(column) {
+					order.push([column.name, (column.asc?"ASC":"DESC")].join(" "));
+				});
+				return order.join(":");
 			},
 		};
 		return obj;
