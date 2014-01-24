@@ -1,5 +1,9 @@
 qh.component('sort-filter', function(ngm, qhm) {
-	ngm.factory(qhm.getComponent('factory', 'sort-filter').getFullName(), ["$rootScope", "$http", qhm.getComponent('factory', 'sort').getFullName(), function($scope, $http, sort) {
+	ngm.factory(qhm.getComponent('factory', 'sort-filter').getFullName(), [
+		"$rootScope", 
+		"$http", 
+		qhm.getComponent('factory', 'sort').getFullName(), 
+	function($scope, $http, sort) {
 		var obj = {
 			sortFilters: {},
 				
@@ -35,7 +39,7 @@ qh.component('sort-filter', function(ngm, qhm) {
 				this.columns = columns;
 				this.sort = new sort.Sort(localScope);
 				// Will also need a filter.
-			},
+			},			
 		};
 		return obj;
 	}]);
