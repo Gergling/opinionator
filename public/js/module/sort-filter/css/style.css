@@ -1,0 +1,14 @@
+.sort-filter .modifiable-label {
+	float:left;
+	background-color: white;
+	border: 1px solid #e3e3e3;
+	padding:2px;
+	padding-left:4px;
+	margin-left: 3px;
+}
+.sort-filter .modifiable-label:first-child {
+	margin-left: 0px;
+}
+.sort-filter .button.disabled {opacity:0.5;}
+
+.sort-filter .filter-construct.chosen {background-color:lightblue;}
