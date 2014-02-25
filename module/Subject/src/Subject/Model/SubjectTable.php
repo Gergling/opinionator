@@ -45,8 +45,12 @@ class SubjectTable
 		));
 
 		$statement = $sql->prepareStatementForSqlObject($select);
-		//echo'<pre>';print_r($statement);echo'</pre>';
-		$response = $statement->execute();
+		try {
+			$response = $statement->execute();
+		} catch(\Zend\Db\Adapter\Exception\InvalidQueryException $e) {
+			//echo'<pre>';print_r($statement);echo'</pre>';
+			$response = array();
+		}
 		return $response;
 	}
 
