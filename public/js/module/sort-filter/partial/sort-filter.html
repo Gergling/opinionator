@@ -1,26 +1,10 @@
-<style>
-
-.sort-filter .modifiable-label {
-	float:left;
-	background-color: white;
-	border: 1px solid #e3e3e3;
-	padding:2px;
-	padding-left:4px;
-	margin-left: 3px;
-}
-.sort-filter .modifiable-label:first-child {
-	margin-left: 0px;
-}
-.sort-filter .button.disabled {opacity:0.5;}
-
-</style>
-
 <div class="sort-filter">
 	<div style="overflow:auto;" class="well well-small">
 		<div class="modifiable-label">
 			<span data-ng-hide="sortFilter.filter.columns">Showing all records</span>
 			<span data-ng-show="sortFilter.filter.columns">Filtering by: </span>
 		</div>
+		<div list-options-filter-construct data-sort-filter-name="{{sortFilter.name}}" data-filter-construct-id="{{sortFilter.filter.rootFilterConstruct.id}}"></div>
 		<div class="modifiable-label" data-ng-repeat="column in sortFilter.filter.columns">
 			{{column.label}} : (Filter value(s) - ought to be able to click here to modify the values somehow, e.g. column = 'a' | 'b' | 'c' | 2, )
 			<span class="icon" data-ng-class="{'icon-arrow-up': column.asc, 'icon-arrow-down': !column.asc}" data-ng-click="sortFilter.sort.toggle(column.id)"></span>
@@ -48,7 +32,7 @@
 			{{column.label}} 
 			<span class="button icon icon-arrow-up" data-ng-class="{disabled:column.flags.asc}" data-ng-click="sortFilter.sort.add(column.id, true)"></span>
 			<span class="button icon icon-arrow-down" data-ng-class="{disabled:column.flags.desc}" data-ng-click="sortFilter.sort.add(column.id, false)"></span>
-			<span class="button icon icon-filter" data-ng-class="{disabled:column.flags.filter}" data-ng-click="" style="opacity:0.5;"></span>
+			<span class="button icon icon-filter" data-ng-class="{disabled:!column.flags.filter}" data-ng-click="sortFilter.filter.addField(column.name)"></span>
 		</div>
 	</div>
 </div>

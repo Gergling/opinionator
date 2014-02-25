@@ -1,34 +1,9 @@
 qh.component('sort-filter', function(ngm, qhm) {
 	ngm.factory(qhm.getComponent('factory', 'sort').getFullName(), ["$rootScope", "$http", function($scope, $http) {
 		var obj = {
-			/*sorts: {},
-				
-			createColumn: function(id, name, label) {
-				return {id:id, name:name, label:label};
-			},*/
 			createCurrent: function(id, asc) {
 				return {id:id, asc:asc};
 			},
-
-			/*addSort: function(name, columns, current) {
-				if (!obj.sorts[name]) {
-					obj.sorts[name] = new obj.Sort(columns, current);
-				}
-				var sort = obj.getSort(name);
-				$scope.$broadcast(qhm.getComponent('factory', 'sort').getFullName()+".addSort", {
-					name: name,
-					sort: sort,
-				});
-
-				return sort;
-			},*/
-			/*getSort: function(name) {
-				if (obj.sorts[name]) {
-					return obj.sorts[name];
-				} else {
-					throw "sort-filter.factory.sort.getSort: Unknown sort '"+name+"'.";
-				}
-			},*/
 
 			Sort: function(sortFilter) {
 				var localScope = this;
@@ -38,7 +13,7 @@ qh.component('sort-filter', function(ngm, qhm) {
 				this.setCurrent = function(current) {
 					localScope.current = current;
 					localScope.update();
-				}
+				};
 				this.resetColumnFlags = function(column) {
 					column.flags.asc = false;
 					column.flags.desc = false;
@@ -63,9 +38,6 @@ qh.component('sort-filter', function(ngm, qhm) {
 					this.current.splice(this.getCurrent(id).currentPosition, 1);
 					this.update();
 				};
-				/*this.updateCurrentIndex = function() {
-					localScope.current.index
-				};*/
 				this.getCurrent = function(id) {
 					var ret = {};
 					var x = angular.forEach(localScope.current, function(current, currentPosition) {

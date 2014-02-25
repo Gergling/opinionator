@@ -1,10 +1,11 @@
 qh.setModule("sort-filter", {
 	factory: [
-		//"filter",
+		"filter",
 		"sort",
 		"sort-filter",
 	],
 	directive: [
 		"sort-filter",
+		"filter-construct",
 	]
 });
