@@ -3,20 +3,18 @@ qh.component('sort-filter', function(ngm, qhm) {
 		"$rootScope", 
 		"$http", 
 		qhm.getComponent('factory', 'sort').getFullName(), 
-	function($scope, $http, sort) {
+		qhm.getComponent('factory', 'filter').getFullName(), 
+	function($scope, $http, sort, filter) {
 		var obj = {
 			sortFilters: {},
 				
 			createColumn: function(id, name, label) {
-				return {id:id, name:name, label:label, flags:{}};
+				return {id:id, name:name, label:label, flags:{filter:true}};
 			},
-			/*createCurrentSortColumn: function(id, asc) {
-				return {id:id, asc:asc};
-			},*/
 
 			addSortFilter: function(name, columns) {
 				if (!obj.sortFilters[name]) {
-					obj.sortFilters[name] = new obj.SortFilter(columns);
+					obj.sortFilters[name] = new obj.SortFilter(name, columns);
 				}
 				var sortFilter = obj.getSortFilter(name);
 				$scope.$broadcast(qhm.getComponent('factory', 'sort-filter').getFullName()+".addSortFilter", {
@@ -34,11 +32,12 @@ qh.component('sort-filter', function(ngm, qhm) {
 				}
 			},
 
-			SortFilter: function(columns) {
+			SortFilter: function(name, columns) {
 				var localScope = this;
 				this.columns = columns;
+				this.name = name;
 				this.sort = new sort.Sort(localScope);
-				// Will also need a filter.
+				this.filter = new filter.Filter(localScope);
 			},			
 		};
 		return obj;

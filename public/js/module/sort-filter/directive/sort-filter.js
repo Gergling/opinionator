@@ -31,7 +31,6 @@ qh.component('sort-filter', function(ngm, qhm) {
 						sortFilter.sort.setCurrent(currentSort);
 					}
 				});
-
 			}],
 		};
 	});
