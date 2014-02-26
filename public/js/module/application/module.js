@@ -1,6 +1,7 @@
 qh.setModule("application", {
 	app: true,
 	require: [
+		"collection",
 		"subject",
 		"sort-filter",
 		"util"

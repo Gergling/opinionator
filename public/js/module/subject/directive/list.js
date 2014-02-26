@@ -3,26 +3,20 @@ qh.getModule('subject').directive('subjectList', function() {
 		restrict: 'A',
 		scope: {orderString:"@", whereString:"@", limit:"@", offset:"@", showSortFilter:"@"},
 		templateUrl: qh.getQHModule('subject').getPath()+"/partial/list.html",
-		controller: ["$scope", "$attrs", "subject.factory.list", "sort-filter.factory.sort-filter", "sort-filter.factory.sort", "$location", 
+		controller: [
+			"$scope", 
+			"$attrs", 
+			"subject.factory.list", 
+			"sort-filter.factory.sort-filter", 
+			"sort-filter.factory.sort", 
+			"$location", 
 		function($scope, $attrs, list, sortFilter, sort, $location) {
 			var getColumns = function(searchParamsOrder, columnLabels) {
 				// This function extrapolates sort columns for use inside the partial from url parameters and allowed columns for the list.
 				var columns = {all:[], current:{sort:[], filter:[]}};
-				var idx = {id:[], name:{}};
-				$.each(columnLabels, function(name, label) {
-					id = columns.all.length;
-					var column = sortFilter.createColumn(id, name, label);
-					columns.all.push(column);
-					//var column = {id: id, name:name, label:label};
-					idx.id[id] = column;
-					idx.name[name] = column;
-				});
-				angular.forEach(searchParamsOrder, function(columnOrderString) {
-					var columnOrder = columnOrderString.split(" ");
-					var name = columnOrder[0];
-					var order = columnOrder[1];
-					columns.current.sort.push(sort.createCurrent(idx.name[name].id, order=="ASC"));
-				});
+				columns.all = list.sortFilter.columns.list;
+				idx = list.sortFilter.columns.index;
+				columns.current.sort = list.sortFilter.getSortOrderColumns(list.list.last.searchParams.order);
 				return columns;
 			};
 			

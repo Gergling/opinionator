@@ -1,5 +1,12 @@
 qh.component('subject', function(ngm, qhm) {
-	ngm.factory(qhm.getComponent('factory', 'list').getFullName(), ["$rootScope", "$http", "$q", function($scope, $http, $q) {
+	ngm.factory(qhm.getComponent('factory', 'list').getFullName(), [
+		"$rootScope", 
+		"$http", 
+		"$q", 
+		"collection.factory.Collection", 
+		"sort-filter.factory.sort-filter", 
+		"sort-filter.factory.sort", 
+	function($scope, $http, $q, Collection, sortFilter, sort) {
 		var obj = {
 			fetch: function(params, forceUpdate) {
 				var promise = $q.defer().promise;
@@ -12,6 +19,7 @@ qh.component('subject', function(ngm, qhm) {
 						var key = JSON.stringify(jQuery.extend(true, {}, response.searchParams));
 						obj.list.all[key] = response;
 						obj.list.last = response;
+						obj.sortFilter.updateColumns(response.columnLabels);
 					});
 				}
 				return promise;
@@ -35,6 +43,28 @@ qh.component('subject', function(ngm, qhm) {
 					order.push([column.name, (column.asc?"ASC":"DESC")].join(" "));
 				});
 				return order.join(":");
+			},
+			sortFilter: {
+				updateColumns: function(columnLabels) {
+					var id = 0;
+					obj.sortFilter.columns.list = [];
+					angular.forEach(columnLabels, function(label, name) {
+						obj.sortFilter.columns.list.push(sortFilter.createColumn(id, name, label));
+						id++;
+					});
+					obj.sortFilter.columns.update();
+				},
+				getSortOrderColumns: function(columns) {
+					var ret = [];
+					angular.forEach(columns, function(columnOrderString) {
+						var columnOrder = columnOrderString.split(" ");
+						var name = columnOrder[0];
+						var order = columnOrder[1];
+						ret.push(sort.createCurrent(obj.sortFilter.columns.index.name[name].id, order=="ASC"));
+					});
+					return ret;
+				},
+				columns: new Collection([], ["name", "id"]),
 			},
 		};
 		return obj;

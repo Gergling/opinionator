@@ -37,7 +37,7 @@ qh.component('sort-filter', function(ngm, qhm) {
 				this.columns = columns;
 				this.name = name;
 				this.sort = new sort.Sort(localScope);
-				this.filter = new filter.Filter(localScope);
+				//this.filter = new filter.Filter(localScope);
 			},			
 		};
 		return obj;
