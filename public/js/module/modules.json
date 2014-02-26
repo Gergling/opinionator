@@ -2,6 +2,7 @@
 	"basePath": "js/module",
 	"list": [
 		"application",
+		"collection",
 		"subject",
 		"sort-filter",
 		"util"
