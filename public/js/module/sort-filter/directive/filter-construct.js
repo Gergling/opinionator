@@ -12,6 +12,7 @@ qh.component('sort-filter', function(ngm, qhm) {
 				var watch = function() {
 					$scope.$watchCollection("["+["$attrs.filterConstruct", "$attrs.sortFilterName"].join(",")+"]", function() {
 						if ($attrs.filterConstructId) {
+							$scope.id = $attrs.filterConstructId;
 							$scope.sortFilter = sortFilter.getSortFilter($attrs.sortFilterName);
 							$scope.filterConstruct = $scope.sortFilter.filter.getConstruct($attrs.filterConstructId);
 						}

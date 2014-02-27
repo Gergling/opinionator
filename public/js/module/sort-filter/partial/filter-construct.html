@@ -1,8 +1,30 @@
-<div class="modifiable-label filter-construct" data-ng-click="toggle(filterConstruct)" data-ng-class="{chosen:filterConstruct.chosen}">
+<div class="modifiable-label filter-construct" data-ng-click="toggle(id)" data-ng-class="{chosen:filterConstruct.chosen}">
+	<div data-ng-show="filterConstruct.fieldsEmpty">
+		<div data-ng-hide="filterConstruct.constructs">No additional filter restrictions</div>
+	</div>
 
-{{filterConstruct}}
-
-	<div class="modifiable-label" data-ng-repeat="column in sortFilter.filter.columns">
+	<div class="children">
+		<div class="modifiable-label">{{filterConstruct.operator}}</div>
+		<div class="modifiable-label fields-list" data-ng-repeat="field in filterConstruct.fields">
+			{{field.label}} 
+			[
+				<span data-ng-hide="field.list.length">No value restrictions</span>
+				<span data-ng-show="field.list.length">
+					<span data-ng-repeat="value in field.list">
+						{{value}}
+						(edit)
+					</span>
+					<span data-ng-hide="$last">,</span>
+				</span>
+			]
+			<span class="button icon icon-list-alt" data-ng-click="" title="Add a value to search for"></span>
+			<span class="button icon icon-resize-full" data-ng-click="" title="Add a range of values to search in"></span>
+			<span class="button icon icon-remove" data-ng-click=""></span>
+			{{field}}
+		</div>
+		<div class="modifiable-label" data-ng-repeat="construct in filterConstruct.constructs">
+			{{construct}}
+		</div>
 	</div>
 
 </div>
