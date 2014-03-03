@@ -11,6 +11,20 @@
 }
 .sort-filter .button.disabled {opacity:0.5;}
 
-.sort-filter .filter-construct.chosen {background-color:lightblue;}
+.sort-filter .filter-construct {
+	background-color:white;
+	border-color:white;
+	border-width:2px;
+	border-style:solid;
+	padding:10px;
+}
+.sort-filter .filter-construct.chosen {border-color:lightblue;}
+.sort-filter .filter-construct .controls .disable {opacity:0.5;}
 
-.sort-filter .filter-construct > .children {background-color:lightgrey;}
+.sort-filter .filter-construct .children {background-color:lightgrey;margin-bottom:10px;}
+
+.sort-filter .filter-construct .children .filter-construct-child .filter-construct-child-inner {margin:5px;background-color:white;padding:5px;overflow:hidden;}
+.sort-filter .filter-construct .children .filter-construct-child .filter-construct-child-inner.operator {text-align:center;}
+.sort-filter .filter-construct .children .filter-construct-child.filter-constructs-item .filter-construct-child-inner {}
+
+.sort-filter .filter-construct-dialogue {background-color:white;}

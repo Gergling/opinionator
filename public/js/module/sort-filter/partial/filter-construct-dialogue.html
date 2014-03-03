@@ -1,0 +1,27 @@
+<div data-ng-show="dialogueModel" class="filter-construct-dialogue">
+	<div class="container-fluid">
+		<form role="form">
+			<div class="row-fluid">
+				<div class="span11">
+					{{dialogueModel}}
+					
+					<div class="input-group">
+						<span class="input-group-addon">$</span>
+						<input type="text" class="form-control" data-ng-model="dialogueModel.construct.dialogue.value">
+						<span class="input-group-addon">.00</span>
+					</div>
+					Show clearly whether intended for listing or range
+					Show existing list of items
+					Input box for listing
+					Input boxes for range
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span12 text-right">
+					<button type="button" class="btn btn-default" data-ng-click="closeDialogue()">Cancel</button>
+					<button type="button" class="btn btn-primary" data-ng-click="submitDialogue()">Ok</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

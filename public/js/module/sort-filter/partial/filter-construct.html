@@ -1,29 +1,54 @@
-<div class="modifiable-label filter-construct" data-ng-click="toggle(id)" data-ng-class="{chosen:filterConstruct.chosen}">
-	<div data-ng-show="filterConstruct.fieldsEmpty">
-		<div data-ng-hide="filterConstruct.constructs">No additional filter restrictions</div>
+<div class="modifiable-label filter-construct" data-ng-class="{chosen:filterConstruct.chosen}">
+	<div class="row-fluid" data-ng-show="filterConstruct.fieldsEmpty">
+		<div class="span12" data-ng-hide="filterConstruct.constructs">No additional filter restrictions</div>
 	</div>
 
-	<div class="children">
-		<div class="modifiable-label">{{filterConstruct.operator}}</div>
-		<div class="modifiable-label fields-list" data-ng-repeat="field in filterConstruct.fields">
-			{{field.label}} 
-			[
-				<span data-ng-hide="field.list.length">No value restrictions</span>
-				<span data-ng-show="field.list.length">
-					<span data-ng-repeat="value in field.list">
-						{{value}}
-						(edit)
-					</span>
-					<span data-ng-hide="$last">,</span>
-				</span>
-			]
-			<span class="button icon icon-list-alt" data-ng-click="" title="Add a value to search for"></span>
-			<span class="button icon icon-resize-full" data-ng-click="" title="Add a range of values to search in"></span>
-			<span class="button icon icon-remove" data-ng-click=""></span>
-			{{field}}
+	<div class="row-fluid" data-ng-show="!filterConstruct.fieldsEmpty || filterConstruct.constructs.length">
+		<div class="span12 children">
+			<div class="filter-construct-child fields-list-item" data-ng-repeat="field in filterConstruct.fields">
+				<div class="filter-construct-child-inner">
+					{{field.label}} 
+					[
+						<span data-ng-hide="field.list.length || dialogueModel">No value restrictions</span>
+						<span data-ng-show="field.list.length">
+							<span data-ng-repeat="value in field.list">
+								{{value}}
+								<span class="button icon icon-remove" data-ng-click="removeFieldValue(filterConstruct.id, field.name, value)"></span>
+							</span>
+							<span data-ng-hide="$last && dialogueModel.type!='list'">,</span>
+						</span>
+						<span data-ng-show="dialogueModel.type=='list' && dialogueModel.name==field.name">{{dialogueModel.construct.dialogue.value}} (blinking cursor)</span>
+					]
+					<span class="button icon icon-list-alt" data-ng-click="setDialogue(filterConstruct.id, field.name, 'list')" title="Add a value to search for"></span>
+					<span class="button icon icon-resize-full" data-ng-click="setDialogue(filterConstruct.id, field.name, 'range')" title="Add a range of values to search in"></span>
+					<span class="button icon icon-remove" data-ng-click="removeField(filterConstruct.id, field.name)"></span>
+				</div>
+				<div class="filter-construct-child-inner operator" data-ng-hide="$last">{{filterConstruct.operator}}</div>
+			</div>
+			<div class="filter-construct-child" data-ng-show="filterConstruct.fields && filterConstruct.constructs">
+				<div class="filter-construct-child-inner">{{filterConstruct.operator}}</div>
+			</div>
+			<div class="filter-construct-child filter-constructs-item" data-ng-repeat="construct in filterConstruct.constructs">
+				<div class="filter-construct-child-inner">
+					<div data-ng-include="wrapperTemplateUrl">(Loading Filter Construct Template...)</div>
+				</div>
+			</div>
 		</div>
-		<div class="modifiable-label" data-ng-repeat="construct in filterConstruct.constructs">
-			{{construct}}
+	</div>
+	
+	<div class="row-fluid controls">
+		<div class="span12">
+			<div class="btn-group">
+				<button type="button" class="btn btn-primary" data-ng-click="toggle(id)" data-ng-class="{disable: filterConstruct.chosen}">
+					<span class="button icon icon-ok" title="Select this construct for additional fields"></span>
+				</button>
+				<button type="button" class="btn btn-success" data-ng-click="addConstruct(id)">
+					<span class="button icon icon-plus" title="Add a parenthetical construct"></span>
+				</button>
+				<button type="button" class="btn btn-danger" data-ng-click="removeConstruct(id)" data-ng-class="{disable: filterConstruct.id==0}">
+					<span class="button icon icon-remove" title="Remove this construct"></span>
+				</button>
+			</div>
 		</div>
 	</div>
 

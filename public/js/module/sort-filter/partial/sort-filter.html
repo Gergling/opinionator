@@ -1,5 +1,6 @@
 <div class="sort-filter">
 	<div style="overflow:auto;" class="well well-small">
+		<div data-ng-include="dialogueTemplateUrl"></div>
 		<div list-options-filter-construct data-sort-filter-name="{{sortFilter.name}}" data-filter-construct-id="{{sortFilter.filter.rootFilterConstruct.id}}"></div>
 		<div class="modifiable-label" data-ng-repeat="column in sortFilter.filter.columns">
 			{{column.label}} : (Filter value(s) - ought to be able to click here to modify the values somehow, e.g. column = 'a' | 'b' | 'c' | 2, )

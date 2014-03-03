@@ -22,12 +22,14 @@ qh.component('sort-filter', function(ngm, qhm) {
 				this.chooseRoot = function() {
 					localScope.chosenFilterConstruct = localScope.rootFilterConstruct;
 					localScope.chosenFilterConstruct.choose();
-					console.log(1, localScope.chosenFilterConstruct);
 				};
-				this.newConstruct = function(parent) {
+				this.newConstruct = function(id) {
+					var parent = localScope.getConstruct(id);
 					var child = new obj.FilterConstruct();
 					parent.addConstruct(child);
-					child.id = localScope.constructs.push(child);
+					child.id = localScope.constructs.length;
+					localScope.constructs.push(child);
+					console.log("new", parent, child);
 					return localScope.getConstruct(child.id);
 				};
 				this.getConstruct = function(id) {
@@ -40,7 +42,6 @@ qh.component('sort-filter', function(ngm, qhm) {
 				
 				this.addField = function(id) {
 					var column = localScope.sortFilter.columns[id];
-					console.log(column);
 					localScope.chosenFilterConstruct.setField(id, column.name, column.label);
 				};
 				
@@ -56,18 +57,29 @@ qh.component('sort-filter', function(ngm, qhm) {
 				this.fieldsEmpty = true;
 
 				// Sets the filter value for a field by field name.
-				this.setField = function(id, name, label) {
-					if (!localScope.fields[name]) {
-						localScope.fields[name] = {id:id, name:name, label:label,list:{}, range:{}};
-						localScope.fieldsEmpty = !Object.keys(localScope.fields).length;
-					}
+				this.getField = function(name) {
 					return localScope.fields[name];
 				};
+				this.setField = function(id, name, label) {
+					if (!localScope.fields[name]) {
+						localScope.fields[name] = {id:id, name:name, label:label,list:[], range:{}};
+						localScope.updateFieldsEmpty();
+					}
+				};
+				this.removeField = function(name) {
+					delete localScope.fields[name];
+					localScope.updateFieldsEmpty();
+				};
+				this.updateFieldsEmpty = function() {
+					localScope.fieldsEmpty = !Object.keys(localScope.fields).length;
+				};
 				this.addFieldValue = function(name, value) {
-					localScope.fields[name].list[value] = value;
+					this.removeFieldValue(name, value);
+					localScope.fields[name].list.push(value);
 				};
 				this.removeFieldValue = function(name, value) {
-					delete localScope.fields[name].list[value];
+					var idx = localScope.fields[name].list.indexOf(value);
+					localScope.fields[name].list.splice(idx, 1);
 				};
 				this.addFieldRange = function(name, from, to) {
 					var range = {from:from, to:to};
@@ -77,7 +89,7 @@ qh.component('sort-filter', function(ngm, qhm) {
 					delete localScope.fields[name].range.index[from][to];
 				};
 				this.setOperand = function(value) {localScope.operand = value;};
-				this.addConstruct = function(constructId) {localScope.constructs.push(constructId);};
+				this.addConstruct = function(construct) {localScope.constructs.push(construct);};
 				this.choose = function() {
 					localScope.chosen = true;
 				};
@@ -90,6 +102,19 @@ qh.component('sort-filter', function(ngm, qhm) {
 					angular.forEach(localScope.constructs, function(construct) {
 						construct.resetChoice();
 					});
+				};
+				this.setDialogue = function(name, type) {
+					localScope.dialogue = {name:name, type:type, value:"", from:"", to:""};
+				};
+				this.setDialogue();
+				this.submitDialogue = function() {
+					if (localScope.dialogue.value) {
+						localScope.addFieldValue(localScope.dialogue.name, localScope.dialogue.value);
+					}
+					if (localScope.dialogue.from && localScope.dialogue.to) {
+						localScope.addFieldRange(localScope.dialogue.name, localScope.dialogue.from, localScope.dialogue.to);
+					}
+					localScope.setDialogue();
 				};
 			},
 		};

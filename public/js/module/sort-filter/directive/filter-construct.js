@@ -1,5 +1,6 @@
 qh.component('sort-filter', function(ngm, qhm) {
 	ngm.directive('listOptionsFilterConstruct', function() {
+		console.log("loaded directive I guess");
 		var scopeAttributes = {
 			filterConstructId:"@", 
 			sortFilterName:"@", 
@@ -15,6 +16,7 @@ qh.component('sort-filter', function(ngm, qhm) {
 							$scope.id = $attrs.filterConstructId;
 							$scope.sortFilter = sortFilter.getSortFilter($attrs.sortFilterName);
 							$scope.filterConstruct = $scope.sortFilter.filter.getConstruct($attrs.filterConstructId);
+							console.log("id", $scope.id);
 						}
 					});
 				};
@@ -24,8 +26,11 @@ qh.component('sort-filter', function(ngm, qhm) {
 					watch();
 				});
 
-				$scope.toggle = function(filterConstruct) {
-					sortFilter.getSortFilter($attrs.sortFilterName).filter.toggle(filterConstruct);
+				$scope.toggle = function(filterConstructId) {
+					sortFilter.getSortFilter($attrs.sortFilterName).filter.toggle(filterConstructId);
+				};
+				$scope.addConstruct = function(filterConstructId) {
+					sortFilter.getSortFilter($attrs.sortFilterName).filter.newConstruct(filterConstructId);
 				};
 			}],
 		};
